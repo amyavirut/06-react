@@ -12,7 +12,9 @@ class Places extends React.Component {
         ]
     }
     render() {
-        return ""
+        return (
+            <h1>{this.state.places.length} Places</h1>
+        );
     }
 }
 
