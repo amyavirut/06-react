@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Thumbnail.css'
 
 class Thumbnail extends React.Component {
     render() {
