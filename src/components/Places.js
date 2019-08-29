@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Places.css' 
 
 class Places extends React.Component {
     state = {
