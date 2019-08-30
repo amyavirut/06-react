@@ -1,3 +1,7 @@
 .thumbnail {
     background-color: lightcoral;
 }
+
+.liked {
+    background-color: red;
+}

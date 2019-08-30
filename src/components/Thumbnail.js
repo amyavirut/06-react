@@ -8,16 +8,23 @@ class Thumbnail extends React.Component {
 
     toggleLike = () => {
         this.setState({
-           liked: !this.state.liked
+            liked: !this.state.liked
         })
+    }
+
+    likeClass() {
+        if (this.state.liked) {
+            return "liked"
+        }
+        return ""
     }
 
     render() {
         return (
-        <div className="thumbnail">
-            {this.props.place.title} {this.props.place.price} {this.props.place.location}
-            <button onClick={this.toggleLike}>Like</button>
-        </div>
+            <div className="thumbnail">
+                {this.props.place.title} {this.props.place.price} {this.props.place.location}
+                <button onClick={this.toggleLike} className={this.likeClass()}>Like</button>
+            </div>
         )
     }
 }

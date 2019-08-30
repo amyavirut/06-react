@@ -19,8 +19,8 @@ class Places extends React.Component {
             <div>
                 <h1>{this.state.places.length} Places</h1>
                 <div className="thumbnails">
-                    {this.state.places.map(place =>
-                        <Thumbnail place={place} />
+                    {this.state.places.map((place, index) =>
+                        <Thumbnail place={place} key={index} />
                     )}
                 </div>
                 <Favorites/>
