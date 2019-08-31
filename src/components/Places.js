@@ -17,9 +17,19 @@ class Places extends React.Component {
             {title: 'Conrad', price: 1500, location: 'Chiangmai'},
         ],
         favorites: [],
+        searchTerm: "",
+    }
+
+    // Updates the searchTerm in state so the list of places will be filtered
+    // This is passed into the Search component as a prop
+    updateSearchTerm = (newSearchTerm) => {
+        this.setState({
+            searchTerm: newSearchTerm,
+        })
     }
 
     // Add a place to the favorites array
+    // This is passed into the Thumbnail component as a prop
     addFavorite = (place) => {
         // Create a new array by calling Array.concat() with a new single item array containing place
         // We do this in order to copy the existing favorites array instead of changing this.state.favorites
@@ -30,6 +40,7 @@ class Places extends React.Component {
     }
 
     // Remove a place from the favorites array
+    // This is passed into the Thumbnail component as a prop
     removeFavorite = (place) => {
         // We use filter here because it creates a new array rather than modifying the existing
         // this.state.favorites array
@@ -40,15 +51,24 @@ class Places extends React.Component {
         })
     }
 
+    // Based on the search term only show a subset of the places
+    // If no search term is entered then show all of them
+    showPlaces() {
+        if (this.state.searchTerm === "") {
+            return this.state.places
+        }
+        return this.state.places.filter(place => place.title.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
+    }
+
     render() {
         // Create child compnents Thumbnails, each is passed place as a prop
         // Also create child component Favorites, which takes favourites as a prop 
         return (
             <div>
                 <h1>{this.state.places.length} Places</h1>
-                <Search/>
+                <Search updateSearchTerm={this.updateSearchTerm}/>
                 <div className="thumbnails">
-                    {this.state.places.map((place, index) =>
+                    {this.showPlaces().map((place, index) =>
                         <Thumbnail place={place} key={index} addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>
                     )}
                 </div>
