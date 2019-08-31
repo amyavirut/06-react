@@ -1,5 +1,6 @@
 import React from 'react'
 import Favorites from './Favorites'
+import Search from './Search'
 import Thumbnail from './Thumbnail'
 import '../styles/Places.css' 
 
@@ -45,6 +46,7 @@ class Places extends React.Component {
         return (
             <div>
                 <h1>{this.state.places.length} Places</h1>
+                <Search/>
                 <div className="thumbnails">
                     {this.state.places.map((place, index) =>
                         <Thumbnail place={place} key={index} addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>
