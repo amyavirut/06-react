@@ -2,21 +2,20 @@ import React from 'react'
 import Favorites from './Favorites'
 import Search from './Search'
 import Thumbnail from './Thumbnail'
-import '../styles/Places.css' 
+import '../styles/Places.css'
 
 class Places extends React.Component {
     // Set the initial state
     // Favourites array starts empty
     state = {
-         places: [
-            {title: 'Banyan Tree', price: 5000 , location: 'Samui'}, 
-            {title: 'Intercon', price:4000 , location: 'Hua Hin'},
-            {title: 'Sala', price: 3000, location: 'Ayuthaya'},
-            {title: 'Nikko', price: 2000 , location: 'Bangkok'},
-            {title: 'Marriott', price: 1000 , location: 'Phuket'},
-            {title: 'Conrad', price: 1500, location: 'Chiangmai'},
+        places: [
+            { title: 'Banyan Tree', price: 5000, location: 'Samui', liked: false },
+            { title: 'Intercon', price: 4000, location: 'Hua Hin', liked: false },
+            { title: 'Sala', price: 3000, location: 'Ayuthaya', liked: false },
+            { title: 'Nikko', price: 2000, location: 'Bangkok', liked: false },
+            { title: 'Marriott', price: 1000, location: 'Phuket', liked: false },
+            { title: 'Conrad', price: 1500, location: 'Chiangmai', liked: false },
         ],
-        favorites: [],
         searchTerm: "",
     }
 
@@ -28,26 +27,20 @@ class Places extends React.Component {
         })
     }
 
-    // Add a place to the favorites array
-    // This is passed into the Thumbnail component as a prop
-    addFavorite = (place) => {
-        // Create a new array by calling Array.concat() with a new single item array containing place
-        // We do this in order to copy the existing favorites array instead of changing this.state.favorites
-        let newFavorites = this.state.favorites.concat([place])
-        this.setState({
-            favorites: newFavorites,
+    // Update/mutate the state by flipping the liked property between true/false
+    toggleLike = (place) => {
+        let newPlaces = this.state.places.map(p => {
+            // Only update the place we want to change liked for
+            if (p == place) {
+                // Create a copy of the place so we don't change the state
+                let newPlace = Object.assign({}, p)
+                newPlace.liked = !newPlace.liked
+                return newPlace
+            }
+            return p
         })
-    }
-
-    // Remove a place from the favorites array
-    // This is passed into the Thumbnail component as a prop
-    removeFavorite = (place) => {
-        // We use filter here because it creates a new array rather than modifying the existing
-        // this.state.favorites array
-        let newFavorites = this.state.favorites
-            .filter(element => element != place)
         this.setState({
-            favorites: newFavorites,
+            places: newPlaces
         })
     }
 
@@ -66,13 +59,13 @@ class Places extends React.Component {
         return (
             <div>
                 <h1>{this.state.places.length} Places</h1>
-                <Search updateSearchTerm={this.updateSearchTerm}/>
+                <Search updateSearchTerm={this.updateSearchTerm} />
                 <div className="thumbnails">
                     {this.showPlaces().map((place, index) =>
-                        <Thumbnail place={place} key={index} addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>
+                        <Thumbnail place={place} toggleLike={this.toggleLike} key={index} />
                     )}
                 </div>
-                <Favorites favorites={this.state.favorites}/>
+                <Favorites favorites={this.state.places.filter(place => place.liked)} />
             </div>
         )
     }

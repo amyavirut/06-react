@@ -2,32 +2,17 @@ import React from 'react'
 import '../styles/Thumbnail.css'
 
 class Thumbnail extends React.Component {
-    // Initial state: All places start liked = false
-    state = {
-        liked: false
-    }
-
-    // Update/mutate the state by flipping the liked property between true/false
-    toggleLike = () => {
-        let newLiked = !this.state.liked
-        this.setState({
-            // Set liked to the opposite of what it is currently
-            liked: newLiked
-        })
-        if (newLiked) {
-            this.props.addFavorite(this.props.place)
-        } else {
-            this.props.removeFavorite(this.props.place)
-        }
-    }
-
     // Return the CSS class of the button element
     // Set to "liked" when this.state.liked == true
     likeClass() {
-        if (this.state.liked) {
+        if (this.props.place.liked) {
             return "liked"
         }
         return ""
+    }
+
+    handleClick = () => {
+        this.props.toggleLike(this.props.place)
     }
 
     render() {
@@ -40,7 +25,7 @@ class Thumbnail extends React.Component {
         return (
             <div className="thumbnail">
                 {this.props.place.title} {this.props.place.price} {this.props.place.location}
-                <button onClick={this.toggleLike} className={this.likeClass()}>Like</button>
+                <button onClick={this.handleClick} className={this.likeClass()}>Like</button>
             </div>
         )
     }

@@ -14,7 +14,6 @@ class Search extends React.Component {
             <input onInput={this.handelInput} type='text'></input>
         )
     }
-            
 }
 
 export default Search
