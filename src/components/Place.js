@@ -11,6 +11,8 @@ import '../styles/Place.css'
 // state - which is managed inside of the component itself, using methods like setState
 // Components can be nested inside of each other, we call this parent -> child relationship
 // The parent is able to pass props to the child via JSX attributes as previously mentioned
+// An important detail to remember is that whenever props change or state is updated with setState
+// then render() is called (unless prevented by lifecycle hooks)
 class Place extends React.Component {
     state = {
         images: [
@@ -18,9 +20,15 @@ class Place extends React.Component {
             'https://q-ak.bstatic.com/images/hotel/max1280x900/186/186223171.jpg',
             'https://r-ak.bstatic.com/images/hotel/max1280x900/186/186223174.jpg',
             'https://r-ak.bstatic.com/images/hotel/max1280x900/186/186223178.jpg'
-        ]
+        ],
+        currentlyDisplayed: 0,
     }
     
+    updateDisplayed = (imageIndex) => {
+        this.setState({
+            currentlyDisplayed: imageIndex,
+        })
+    }
 
     // render() returns JSX
     // in JSX we can create HTML-like elements with the <element></element> syntax
@@ -35,11 +43,11 @@ class Place extends React.Component {
             <div>
                 <h1>Next Destination One Click</h1>
                 <div className='main'>
-                    <div className='largeimage' style={{backgroundImage: `url('${this.state.images[0]}')` }}></div>
+                    <div className='largeimage' style={{backgroundImage: `url('${this.state.images[this.state.currentlyDisplayed]}')` }}></div>
                 </div>
                 <div className='gallery'>
                     {this.state.images.map((image, index) =>
-                        <div className="smallerimages" style={{backgroundImage: `url('${image}')` }} key={index} />
+                        <div className="smallerimages" onClick={() => { this.updateDisplayed(index)} } style={{backgroundImage: `url('${image}')` }} key={index} />
                     )}
                 </div>
             </div>
