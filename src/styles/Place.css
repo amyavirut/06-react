@@ -1,0 +1,21 @@
+.main {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.largeimage {
+    margin: 0;
+    width: 640px;
+    height: 426px;
+    background-size: cover;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.smallerimages {
+    width: 100px;
+    height: 67px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
