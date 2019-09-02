@@ -17,7 +17,7 @@ class Places extends React.Component {
             { title: 'Conrad', price: 1500, location: 'Chiangmai', liked: false },
         ],
         searchTerm: "",
-    }
+    };
 
     // Updates the searchTerm in state so the list of places will be filtered
     // This is passed into the Search component as a prop
@@ -31,7 +31,7 @@ class Places extends React.Component {
     toggleLike = (place) => {
         let newPlaces = this.state.places.map(p => {
             // Only update the place we want to change liked for
-            if (p == place) {
+            if (p === place) {
                 // Create a copy of the place so we don't change the state
                 let newPlace = Object.assign({}, p)
                 newPlace.liked = !newPlace.liked
@@ -51,7 +51,7 @@ class Places extends React.Component {
             return this.state.places
         }
         return this.state.places.filter(place => place.title.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
-    }
+    } 
 
     render() {
         // Create child compnents Thumbnails, each is passed place as a prop
