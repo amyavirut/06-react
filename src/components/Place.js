@@ -23,11 +23,19 @@ class Place extends React.Component {
         ],
         currentlyDisplayed: 0,
     }
-    
+    //update the state
     updateDisplayed = (imageIndex) => {
         this.setState({
             currentlyDisplayed: imageIndex,
         })
+    }
+
+    imageClass(imageIndex) {
+        let baseClasses = "smallerimages"
+        if (this.state.currentlyDisplayed == imageIndex) {
+            baseClasses += " selected"
+        }
+        return baseClasses
     }
 
     // render() returns JSX
@@ -47,13 +55,12 @@ class Place extends React.Component {
                 </div>
                 <div className='gallery'>
                     {this.state.images.map((image, index) =>
-                        <div className="smallerimages" onClick={() => { this.updateDisplayed(index)} } style={{backgroundImage: `url('${image}')` }} key={index} />
+                        <div className={this.imageClass(index)} onClick={() => { this.updateDisplayed(index)} } style={{backgroundImage: `url('${image}')` }} key={index} />
                     )}
                 </div>
             </div>
         )
     }
-
 }
 
 export default Place;

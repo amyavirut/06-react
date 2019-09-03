@@ -19,3 +19,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
 }
+
+.selected {
+    border: 2px solid lightcoral;
+}
